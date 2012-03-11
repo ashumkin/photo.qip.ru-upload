@@ -40,9 +40,10 @@ do
 	esac
 done
 SITE=http://photo.qip.ru
-COOKIE=$HOME/.cache/curl/photo.qip.ru
-SCRIPT=${0%.*}.$$
-LOG=$SCRIPT.log
+CACHE=$HOME/.cache/curl/photo.qip.ru
+COOKIE=$CACHE/cookie
+LOG="$CACHE/cache.$$.log"
+mkdir -p "$CACHE"
 
 # try to open "add photo" page
 # if it fails (not 200 OK)
