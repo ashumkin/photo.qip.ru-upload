@@ -2,6 +2,7 @@
 
 DOMAIN="photofile.ru"
 TRACE="--silent --show-error"
+rename=0
 while [ "$1" != "" ];
 do
 	arg="$1"
@@ -33,6 +34,9 @@ do
 		-P|--progress)
 			# remove "--silent" option to show progress
 			TRACE="${TRACE//--silent/} -#"
+			;;
+		-r|--rename)
+			rename=1
 			;;
 		*)
 			FILE="$arg"
@@ -79,7 +83,7 @@ if [ ! -e "$FILE" ]; then
 fi
 curl $SITE/photo/$USER/$ALBUM_ID/do/ \
 	-F act=add_images \
-	-F rename_by_album=1 \
+	-F rename_by_album=$rename \
 	-F album_name="$ALBUM" \
 	-F image_files\[\]=@"$FILE"\;type=image/jpeg \
 	-b $COOKIE \
